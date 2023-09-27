@@ -41,7 +41,9 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-        //
+        return view('foods.show', [
+            'food' => $food,
+        ]);
     }
 
     /**
@@ -49,7 +51,9 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
-        //
+        return view('foods.edit', [
+            'food' => $food,
+        ]);
     }
 
     /**
@@ -57,7 +61,9 @@ class FoodController extends Controller
      */
     public function update(UpdateFoodRequest $request, Food $food)
     {
-        //
+        $food->fill($request->input());
+        $food->save();
+        return redirect()->route('foods.index');
     }
 
     /**
@@ -65,6 +71,7 @@ class FoodController extends Controller
      */
     public function destroy(Food $food)
     {
-        //
+        $food->delete();
+        return redirect()->route('foods.index');
     }
 }
