@@ -16,11 +16,13 @@ class UserRoleController extends Controller
         $user = User::findOrFail($userId);
         $role = Role::findOrFail($roleId);
         $user->roles()->save($role);
+        $user->save();
     }
 
     public function destroy(string $userId, $roleId) {
         $user = User::findOrFail($userId);
         $role = Role::findOrFail($roleId);
         $user->roles()->dissociate($role);
+        $user->save();
     }
 }
