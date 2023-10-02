@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
             $table->boolean('can_order');
             $table->boolean('can_manage_orders');
             $table->boolean('can_manage_foods');
