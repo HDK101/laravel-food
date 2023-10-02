@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreClientOrder;
+use App\Models\Food;
+use App\Models\FoodOrder;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class ClientOrderController extends Controller
 {
@@ -21,8 +26,21 @@ class ClientOrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreClientOrder $request)
     {
+        $order = Order::create();
+
+        $foods = Food::where('id', $request->food_ids)->get();
+
+        $foodsOrder = collect();
+
+        foreach ($foods as $food) {
+            $foodOrder = $order->foods()->create($food);
+            $foodsOrder->concat($foodOrder);
+        }
+
+        dd($foodsOrder);
+
         return redirect()->route('orders.client');
     }
 }
