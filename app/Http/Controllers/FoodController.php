@@ -14,9 +14,10 @@ class FoodController extends Controller
      */
     public function index(Request $request)
     {
-        return Food::paginate($request->query('size') != null ? $request->query('size') : 10);
-        // dd(Food::paginate(15));
-        //return view('foods.index');
+        $foods = Food::all();
+        return view('foods.index', [
+            'foods' => $foods,
+        ]);
     }
 
     /**

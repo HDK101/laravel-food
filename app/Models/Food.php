@@ -10,4 +10,8 @@ class Food extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'price_in_cents'];
+
+    public function formattedPrice() {
+        return $this->price_in_cents / 100;
+    }
 }
