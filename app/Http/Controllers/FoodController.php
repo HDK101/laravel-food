@@ -14,6 +14,8 @@ class FoodController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('canAccessFood', Food::class);
+
         $foods = Food::all();
         return view('foods.index', [
             'foods' => $foods,
@@ -25,6 +27,8 @@ class FoodController extends Controller
      */
     public function create()
     {
+        $this->authorize('canAccessFood', Food::class);
+
         return view('foods.create');
     }
 
@@ -33,7 +37,14 @@ class FoodController extends Controller
      */
     public function store(StoreFoodRequest $request)
     {
-        Food::create($request->input());
+        $this->authorize('canAccessFood', Food::class);
+
+        $price = $request->input('price_in_cents');
+
+        Food::create([
+            ...$request->input(),
+            'price_in_cents' => $price * 100,
+        ]);
         return redirect()->route('foods.index');
     }
 
@@ -42,6 +53,8 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
+        $this->authorize('canAccessFood', Food::class);
+
         return view('foods.show', [
             'food' => $food,
         ]);
@@ -52,6 +65,8 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
+        $this->authorize('canAccessFood', Food::class);
+
         return view('foods.edit', [
             'food' => $food,
         ]);
@@ -62,6 +77,8 @@ class FoodController extends Controller
      */
     public function update(UpdateFoodRequest $request, Food $food)
     {
+        $this->authorize('canAccessFood', Food::class);
+
         $food->fill($request->input());
         $food->save();
         return redirect()->route('foods.index');
@@ -72,6 +89,8 @@ class FoodController extends Controller
      */
     public function destroy(Food $food)
     {
+        $this->authorize('canAccessFood', Food::class);
+
         $food->delete();
         return redirect()->route('foods.index');
     }

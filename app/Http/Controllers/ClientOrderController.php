@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 class ClientOrderController extends Controller
 {
     public function index() {
+        $this->authorize('canOrder', Order::class);
+
         return view('orders.client.index');
     }
 
@@ -20,6 +22,8 @@ class ClientOrderController extends Controller
      */
     public function create()
     {
+        $this->authorize('canOrder', Order::class);
+
         return view('orders.client.create');
     }
 
@@ -28,6 +32,8 @@ class ClientOrderController extends Controller
      */
     public function store(StoreClientOrder $request)
     {
+        $this->authorize('canOrder', Order::class);
+
         $order = Order::create();
 
         $foods = Food::where('id', $request->food_ids)->get();

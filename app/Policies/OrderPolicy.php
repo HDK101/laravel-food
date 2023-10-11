@@ -4,40 +4,22 @@ namespace App\Policies;
 
 use App\Models\Order;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Auth\Access\Response;
 
 class OrderPolicy
 {
-    /**
-     * Determine whether the user can view the index.
-     */
-    public function index(User $user): bool
-    {
+    public function canManageOrders(User $user) {
         $roles = $user->roles()->get();
-        return $roles->filter(function ($role) {
+        return $roles->filter(function (Role $role) {
             return $role->can_manage_orders;
         }) > 0;
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function show(User $user): bool
-    {
+    public function canOrder(User $user) {
         $roles = $user->roles()->get();
-        return $roles->filter(function ($role) {
-            return $role->can_manage_orders;
-        }) > 0;
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user): bool
-    {
-        $roles = $user->roles()->get();
-        return $roles->filter(function ($role) {
-            return $role->can_manage_orders;
+        return $roles->filter(function (Role $role) {
+            return $role->can_order;
         }) > 0;
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ClientOrderController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +31,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('/foods', FoodController::class);
+
+    Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
+    Route::post('/menu/select', [MenuController::class, 'selectFood'])->name('menu.select');
+
+    Route::prefix('/client/orders')->group(function() {
+        Route::get('/', [ClientOrderController::class, 'index']);
+        Route::post('/', [ClientOrderController::class, 'store']);
+    });
 });
 
 require __DIR__.'/auth.php';
