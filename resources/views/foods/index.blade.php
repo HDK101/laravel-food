@@ -1,10 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
     <div>
         <div class="p-6 rounded-xl bg-white shadow-sm m-6">
             <a href="{{ route('foods.create') }}">Criar</a>

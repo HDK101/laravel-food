@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RemoveFoodRequest;
 use App\Http\Requests\SelectFoodRequest;
+use App\Http\Requests\UpdateFoodInCartRequest;
 use Illuminate\Http\Request;
 use App\Models\Food;
 
@@ -11,6 +13,11 @@ class MenuController extends Controller
     public function index(Request $request)
     {
         $selectedFoods = $request->session()->get('selectedFoods');
+
+        if (!is_array($selectedFoods)) {
+            $selectedFoods = [];
+        }
+
         $selectedFoodsCollection = collect($selectedFoods);
 
         $foodOrderMap = [];
@@ -38,6 +45,38 @@ class MenuController extends Controller
             'selectedFoods' => $foodMap,
             'foods' => Food::all(),
         ]);
+    }
+
+    public function removeFood(RemoveFoodRequest $request) {
+        $selectedFoods = $request->session()->get('selectedFoods');
+        $foodId = $request->input('foodId');
+
+        $selectedFoods = collect($selectedFoods)->filter(function($selectedFood) use($foodId) {
+            return $selectedFood['id'] != $foodId;
+        })->toArray();
+
+        $request->session()->put('selectedFoods', $selectedFoods);
+
+        return redirect()->route('menu.index');
+    }
+
+    public function updateFood(UpdateFoodInCartRequest $request) {
+        $selectedFoods = collect($request->session()->get('selectedFoods'));
+
+        $selectedFood = $selectedFoods->firstOrFail(function ($food) use($request) {
+            return $food['id'] == $request->input('foodId');
+        });
+
+        $selectedFood['quantity'] = $request->input('quantity');
+
+        $newSelectedFoods = [
+            ...$selectedFoods->filter(fn ($selectedFood) => $selectedFood['id'] != $request->input('foodId')),
+            $selectedFood,
+        ];
+
+        $request->session()->put('selectedFoods', $newSelectedFoods);
+
+        return redirect()->route('menu.index');
     }
 
     public function selectFood(SelectFoodRequest $request)

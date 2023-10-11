@@ -34,10 +34,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
     Route::post('/menu/select', [MenuController::class, 'selectFood'])->name('menu.select');
+    Route::post('/menu/update', [MenuController::class, 'updateFood'])->name('menu.update');
+    Route::post('/menu/remove', [MenuController::class, 'removeFood'])->name('menu.remove');
 
     Route::prefix('/client/orders')->group(function() {
-        Route::get('/', [ClientOrderController::class, 'index']);
-        Route::post('/', [ClientOrderController::class, 'store']);
+        Route::get('/', [ClientOrderController::class, 'index'])->name('clientorder.index');
+        Route::post('/', [ClientOrderController::class, 'store'])->name('clientorder.store');
     });
 });
 
