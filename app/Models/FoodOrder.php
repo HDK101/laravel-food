@@ -9,5 +9,5 @@ class FoodOrder extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'price_in_cents'];
+    protected $fillable = ['name', 'price_in_cents', 'quantity'];
 }

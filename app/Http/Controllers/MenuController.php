@@ -97,7 +97,9 @@ class MenuController extends Controller
         if (!$hasSelectedFood->count() > 0) {
             $selectedFoods[] = [
                 'id' => $foodId,
+                'name' => $food->name,
                 'quantity' => $request->input('quantity'),
+                'price_in_cents' => $food->price_in_cents,
             ];
 
             $request->session()->put('selectedFoods', $selectedFoods);

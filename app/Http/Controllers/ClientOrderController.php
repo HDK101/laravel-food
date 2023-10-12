@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClientOrder;
-use App\Models\Food;
-use App\Models\FoodOrder;
 use App\Models\Order;
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class ClientOrderController extends Controller
 {
@@ -34,18 +31,18 @@ class ClientOrderController extends Controller
     {
         $this->authorize('canOrder', Order::class);
 
+        $selectedFoods = $request->session()->get('selectedFoods');
+
         $order = Order::create();
+        $order->client()->associate(Auth::user());
 
-        $foods = Food::where('id', $request->food_ids)->get();
-
-        $foodsOrder = collect();
-
-        foreach ($foods as $food) {
-            $foodOrder = $order->foods()->create($food);
-            $foodsOrder->concat($foodOrder);
+        foreach ($selectedFoods as $food) {
+            $order->foods()->create([
+                'name' => $food['name'],
+                'quantity' => $food['quantity'],
+                'price_in_cents' => $food['price_in_cents'],
+            ]);
         }
-
-        dd($foodsOrder);
 
         return redirect()->route('orders.client');
     }
