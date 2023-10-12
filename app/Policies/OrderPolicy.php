@@ -20,6 +20,6 @@ class OrderPolicy
         $roles = $user->roles()->get();
         return $roles->filter(function (Role $role) {
             return $role->can_order;
-        }) > 0;
+        })->isNotEmpty();
     }
 }

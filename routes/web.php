@@ -38,8 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/menu/remove', [MenuController::class, 'removeFood'])->name('menu.remove');
 
     Route::prefix('/client/orders')->group(function() {
-        Route::get('/', [ClientOrderController::class, 'index'])->name('clientorder.index');
-        Route::post('/', [ClientOrderController::class, 'store'])->name('clientorder.store');
+        Route::get('/', [ClientOrderController::class, 'index'])->name('client.order.index');
+        Route::post('/', [ClientOrderController::class, 'store'])->name('client.order.store');
     });
 });
 

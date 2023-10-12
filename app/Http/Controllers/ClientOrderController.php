@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClientOrder;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ClientOrderController extends Controller
@@ -11,30 +12,20 @@ class ClientOrderController extends Controller
     public function index() {
         $this->authorize('canOrder', Order::class);
 
-        return view('orders.client.index');
+        $orders = Auth::user()->orders()->get();
+
+        return view('orders.client.index', [
+            'orders' => $orders,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $this->authorize('canOrder', Order::class);
-
-        return view('orders.client.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreClientOrder $request)
     {
         $this->authorize('canOrder', Order::class);
 
         $selectedFoods = $request->session()->get('selectedFoods');
 
-        $order = Order::create();
-        $order->client()->associate(Auth::user());
+        $order = Auth::user()->orders()->create();
 
         foreach ($selectedFoods as $food) {
             $order->foods()->create([

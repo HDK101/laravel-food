@@ -19,7 +19,8 @@
                 </form>
             </div>
             @endforeach
-            <form action="/cart">
+            <form method="POST" action="{{ route('client.order.store') }}">
+                @csrf
                 <input type="submit" value="Finalizar compra">
             </form>
         </div>

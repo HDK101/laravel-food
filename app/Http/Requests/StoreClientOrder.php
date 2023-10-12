@@ -11,7 +11,7 @@ class StoreClientOrder extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,6 @@ class StoreClientOrder extends FormRequest
     public function rules(): array
     {
         return [
-            'food_ids' => 'array',
-            'food_ids.*' => 'int',
         ];
     }
 }

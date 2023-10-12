@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('food_orders', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('registered_price_in_cents');
-            $table->bigInteger('full_price_in_cents');
+            $table->unsignedBigInteger('quantity');
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('price_in_cents');
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->timestamps();
         });
     }
