@@ -16,4 +16,13 @@ class Order extends Model
     public function client() {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function totalPrice() {
+        return $this->foods()->get()->sum(fn($food) => $food->price());
+    }
+
+    public function totalPriceFormatted() {
+        $calculatedPrice = number_format($this->totalPrice() / 100, 2, ',');
+        return "R$ $calculatedPrice";
+    }
 }

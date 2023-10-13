@@ -13,7 +13,7 @@ class OrderPolicy
         $roles = $user->roles()->get();
         return $roles->filter(function (Role $role) {
             return $role->can_manage_orders;
-        }) > 0;
+        })->isNotEmpty();
     }
 
     public function canOrder(User $user) {

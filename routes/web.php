@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientOrderController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,12 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('menu.index');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/menu/select', [MenuController::class, 'selectFood'])->name('menu.select');
     Route::post('/menu/update', [MenuController::class, 'updateFood'])->name('menu.update');
     Route::post('/menu/remove', [MenuController::class, 'removeFood'])->name('menu.remove');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('admin.order.index');
 
     Route::prefix('/client/orders')->group(function() {
         Route::get('/', [ClientOrderController::class, 'index'])->name('client.order.index');

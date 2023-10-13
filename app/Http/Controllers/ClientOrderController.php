@@ -12,7 +12,7 @@ class ClientOrderController extends Controller
     public function index() {
         $this->authorize('canOrder', Order::class);
 
-        $orders = Auth::user()->orders()->get();
+        $orders = Auth::user()->orders()->with(['foods', 'client'])->get();
 
         return view('orders.client.index', [
             'orders' => $orders,
@@ -25,6 +25,8 @@ class ClientOrderController extends Controller
 
         $selectedFoods = $request->session()->get('selectedFoods');
 
+        $request->session()->remove('selectedFoods');
+
         $order = Auth::user()->orders()->create();
 
         foreach ($selectedFoods as $food) {
@@ -35,6 +37,6 @@ class ClientOrderController extends Controller
             ]);
         }
 
-        return redirect()->route('orders.client');
+        return redirect()->route('client.order.index');
     }
 }

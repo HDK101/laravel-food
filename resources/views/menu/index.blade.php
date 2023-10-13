@@ -3,38 +3,50 @@
         <div class="p-6 rounded-xl bg-white shadow-sm m-6">
             <h1 class="text-5xl">Carrinho</h1>
             @foreach ($selectedFoods as $selectedFood)
-            <div class="p-6 m-6">
+            <div class="p-6 flex flex-col gap-6 m-6 rounded border-2">
                 <h1 class="text-4xl">{{ $selectedFood['food']->name }}</h1>
-                <p>Preço: {{ $selectedFood['food']->formattedPrice() }}</p>
-                <form method="POST" action="{{ route('menu.update') }}">
+                <p class="text-lg">Preço: {{ $selectedFood['food']->formattedPrice() }}</p>
+                <form class="flex gap-2" method="POST" action="{{ route('menu.update') }}">
                     @csrf
-                    <input type="number" name="quantity" min="1" value="{{ $selectedFood['quantity'] }}"/>
+                    <input class="rounded-xl border-2 w-16 p-4" type="number" name="quantity" min="1" value="{{ $selectedFood['quantity'] }}"/>
                     <input hidden type="number" name="foodId" value="{{ $selectedFood['food']->id }}" />
-                    <input type="submit" value="Atualizar">
+                    <button class="bg-red-600 p-4 rounded-xl font-bold text-white flex gap-2">
+                        <i data-feather="edit-2" color="white"></i>
+                        Atualizar
+                    </button>
                 </form>
                 <form method="POST" action="{{ route('menu.remove') }}">
                     @csrf
                     <input hidden type="number" name="foodId" value="{{ $selectedFood['food']->id }}" />
-                    <input type="submit" value="Remover">
+                    <button class="bg-red-600 p-4 rounded-xl font-bold text-white flex gap-2">
+                        <i data-feather="shopping-cart" color="white"></i>
+                        Remover
+                    </button>
                 </form>
             </div>
             @endforeach
             <form method="POST" action="{{ route('client.order.store') }}">
                 @csrf
-                <input type="submit" value="Finalizar compra">
+                <button class="bg-red-600 p-4 rounded-xl font-bold text-white flex gap-2">
+                    <i data-feather="check" color="white"></i>
+                    Finalizar compra
+                </button>
             </form>
         </div>
         <div class="p-6 rounded-xl bg-white shadow-sm m-6 grid gap-4 flex">
             <h1 class="text-5xl">Cardápio</h1>
             @foreach ($foods as $food)
-            <div class="p-6">
+            <div class="p-6 flex flex-col gap-6 rounded border-2">
                 <h1 class="text-4xl">{{ $food->name }}</h1>
-                <p>Preço: {{ $food->formattedPrice() }}</p>
-                <form method="POST" action="{{ route('menu.select') }}">
+                <p class="text-lg">Preço: {{ $food->formattedPrice() }}</p>
+                <form class="flex gap-5" method="POST" action="{{ route('menu.select') }}">
                     @csrf
                     <input hidden type="number" name="foodId" value="{{ $food->id }}" />
-                    <input type="number" name="quantity" min="1" value="1"/>
-                    <input type="submit" value="Adicionar">
+                    <input class="rounded-xl border-2 w-16" type="number" name="quantity" min="1" value="1"/>
+                    <button class="bg-red-600 p-4 rounded-xl font-bold text-white flex gap-2">
+                        <i data-feather="shopping-cart" color="white"></i>
+                        Adicionar
+                    </button>
                 </form>
             </div>
             @endforeach

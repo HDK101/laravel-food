@@ -13,6 +13,7 @@ return new class extends Migration
         DB::transaction(function() {
             DB::table('roles')->insert(
                 [
+                    'id' => 1,
                     'name' => 'Cliente',
                     'can_order' => true,
                     'can_manage_orders' => false,
@@ -23,6 +24,7 @@ return new class extends Migration
 
             DB::table('roles')->insert(
                 [
+                    'id' => 2,
                     'name' => 'Administrador',
                     'can_order' => true,
                     'can_manage_orders' => true,

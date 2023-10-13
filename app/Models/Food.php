@@ -11,7 +11,12 @@ class Food extends Model
 
     protected $fillable = ['name', 'price_in_cents'];
 
-    public function formattedPrice() {
+    public function price() {
         return $this->price_in_cents / 100;
+    }
+
+    public function formattedPrice() {
+        $formatted = number_format($this->price() / 100, 2, ',');
+        return "R$ $formatted";
     }
 }

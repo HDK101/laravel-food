@@ -12,9 +12,9 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('index', Order::class);
+        $this->authorize('canManageOrders', Order::class);
 
-        return view('orders.index', [
+        return view('orders.admin.index', [
             'orders' => Order::all(),
         ]);
     }
@@ -24,7 +24,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $this->authorize('show', Order::class);
+        $this->authorize('canManageOrders', Order::class);
 
         return view('orders.show', [
             'order' => $order,

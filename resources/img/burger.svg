@@ -1,5 +1,6 @@
-<div class="flex items-center gap-5">
-<svg height="48px" width="48px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
 	 viewBox="0 0 512.002 512.002" xml:space="preserve">
 <path style="fill:#E07188;" d="M458.656,208.429c-4.366-4.366-10.285-6.819-16.457-6.819H69.819c-6.173,0-12.092,2.453-16.457,6.819
 	c-4.364,4.364-6.814,10.285-6.814,16.457l0.008,100.807c0.002,12.851,10.42,23.269,23.272,23.269c27.047,0,41.314-4.754,53.9-8.952
@@ -49,5 +50,3 @@
 	c19.496,0,28.186,2.897,39.187,6.563c12.587,4.197,26.855,8.952,53.901,8.952c27.052,0,41.317-4.754,53.901-8.952
 	C508.277,335.946,514.866,322.766,510.8,310.572z"/>
 </svg>
-<h1 class="text-3xl font-bold">MyFood</h1>
-</div>
