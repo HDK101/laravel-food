@@ -39,10 +39,15 @@ class FoodController extends Controller
     {
         $this->authorize('canAccessFood', Food::class);
 
+        $fileName = time() . '.' . $request->file('image')->extension();
+        $request->image->storeAs('public/images', $fileName);
+        $request->file('image')->storeAs('public/images', $fileName);
+
         $price = $request->input('price_in_cents');
 
         Food::create([
             ...$request->input(),
+            'filename' => $fileName,
             'price_in_cents' => $price * 100,
         ]);
         return redirect()->route('foods.index');

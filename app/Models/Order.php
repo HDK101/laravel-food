@@ -18,11 +18,11 @@ class Order extends Model
     }
 
     public function totalPrice() {
-        return $this->foods()->get()->sum(fn($food) => $food->price());
+        return $this->foods()->get()->sum(fn($food) => $food->price() * $food->quantity);
     }
 
     public function totalPriceFormatted() {
-        $calculatedPrice = number_format($this->totalPrice() / 100, 2, ',');
+        $calculatedPrice = number_format($this->totalPrice(), 2, ',');
         return "R$ $calculatedPrice";
     }
 }

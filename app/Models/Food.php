@@ -9,14 +9,14 @@ class Food extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'price_in_cents'];
+    protected $fillable = ['name', 'price_in_cents', 'filename'];
 
     public function price() {
         return $this->price_in_cents / 100;
     }
 
     public function formattedPrice() {
-        $formatted = number_format($this->price() / 100, 2, ',');
+        $formatted = number_format($this->price(), 2, ',');
         return "R$ $formatted";
     }
 }

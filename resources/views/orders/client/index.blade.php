@@ -9,6 +9,7 @@
                 <div>
                     @foreach ($order->foods()->get() as $food)
                     <h1 class="text-4xl">{{ $food->name }}</h1>
+                    <p>Quantidade: {{ $food->quantity }}</p>
                     <p>Preço: {{ $food->formattedPrice() }}</p>
                     @endforeach
                 </div>

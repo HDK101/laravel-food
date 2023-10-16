@@ -16,7 +16,7 @@ class FoodOrder extends Model
     }
 
     public function formattedPrice() {
-        $formatted = number_format($this->price() / 100, 2, ',');
+        $formatted = number_format($this->price(), 2, ',');
         return "R$ $formatted";
     }
 }
