@@ -37,6 +37,8 @@
             <h1 class="text-5xl">Cardápio</h1>
             @foreach ($foods as $food)
             <div class="p-6 flex flex-col gap-6 rounded border-2">
+                <img class="d-block w-1/3 rounded-lg m-2" src="{{ asset("storage/images/$food->filename") }}"
+                alt="">
                 <h1 class="text-4xl">{{ $food->name }}</h1>
                 <p class="text-lg">Preço: {{ $food->formattedPrice() }}</p>
                 <form class="flex gap-5" method="POST" action="{{ route('menu.select') }}">
