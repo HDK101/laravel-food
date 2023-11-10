@@ -5,7 +5,10 @@
             @foreach ($selectedFoods as $selectedFood)
             <div class="p-6 flex flex-col gap-6 m-6 rounded border-2">
                 <h1 class="text-4xl">{{ $selectedFood['food']->name }}</h1>
-                <p class="text-lg">Preço: {{ $selectedFood['food']->formattedPrice() }}</p>
+                <img class="d-block w-1/6 rounded-lg m-2" src="{{ asset('storage/images/' . $selectedFood['food']->filename) }}" alt="{{$selectedFood['food']->name}}">
+                <p class="rounded-xl border-gray-500 border-2 w-fit p-4">Preço: {{ $selectedFood['food']->formattedPrice() }}</p>
+                <p class="rounded-xl border-gray-500 border-2 w-fit p-4">Total: {{ $selectedFood['food']->price() *  $selectedFood['quantity']}}</p>
+
                 <form class="flex gap-2" method="POST" action="{{ route('menu.update') }}">
                     @csrf
                     <input class="rounded-xl border-2 w-16 p-4" type="number" name="quantity" min="1" value="{{ $selectedFood['quantity'] }}"/>
