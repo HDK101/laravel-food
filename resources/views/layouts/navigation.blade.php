@@ -18,9 +18,11 @@
                     <x-nav-link :href="route('client.order.index')" :active="request()->routeIs('client.order.index')">
                         {{ __('Pedidos') }}
                     </x-nav-link>
+                    @can('index', App\Models\User::class)
                     <x-nav-link :href="route('admins.index')" :active="request()->routeIs('admins.index')">
                         {{ __('Admins') }}
                     </x-nav-link>
+                    @endcan
                     @can('canManageOrders', App\Models\Order::class)
                         <x-nav-link :href="route('admin.order.index')" :active="request()->routeIs('admin.order.index')">
                             {{ __('Todos os pedidos') }}

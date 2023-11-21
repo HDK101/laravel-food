@@ -28,6 +28,14 @@ class AdminController extends Controller
         return view('admin.create');
     }
 
+    public function edit(int $id)
+    {
+        $user = User::find($id);
+        return view('admin.edit', [
+            'admin' => $user,
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -35,6 +43,13 @@ class AdminController extends Controller
     {
         $user = User::create($request->input());
         $user->roles()->sync([2]);
+        $user->save();
+        return redirect()->route('admins.index');
+    }
+
+    public function update(User $user, Request $request)
+    {
+        $user->fill($request->input());
         $user->save();
         return redirect()->route('admins.index');
     }

@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/orders', [OrderController::class, 'index'])->name('admin.order.index');
 
-    Route::resource('/admins', AdminController::class)->only(['index', 'create', 'store', 'destroy']);
+    Route::resource('/admins', AdminController::class)->only(['index', 'create', 'edit', 'store', 'update', 'destroy']);
 
     Route::prefix('/client/orders')->group(function() {
         Route::get('/', [ClientOrderController::class, 'index'])->name('client.order.index');

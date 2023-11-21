@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('roles', function (Blueprint $table) {
             $table->boolean('can_manage_admins');
         });
 
-        DB::table('users')->where('id', 2)->update([
+        DB::table('roles')->where('id', 2)->update([
             'can_manage_admins' => true,
         ]);
     }
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('roles', function (Blueprint $table) {
             $table->removeColumn('can_manage_admins');
         });
     }
