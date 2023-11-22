@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
+        Schema::table('roles', function (Blueprint $table) {
+            $table->boolean('can_manage_admins');
         });
+
+        DB::table('roles')->where('id', 2)->update([
+            'can_manage_admins' => true,
+        ]);
     }
 
     /**
@@ -22,8 +25,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->removeColumn('user_id');
+        Schema::table('roles', function (Blueprint $table) {
+            $table->removeColumn('can_manage_admins');
         });
     }
 };
+

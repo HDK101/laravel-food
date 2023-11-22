@@ -4,8 +4,7 @@
             @csrf
             <x-input-label for="name" :value="__('Nome')" />
 
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" required
-                autocomplete="current-password" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" required />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
             <x-input-label for="price_in_cents" :value="__('Preço')" />
