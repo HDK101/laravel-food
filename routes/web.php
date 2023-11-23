@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CupomController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientOrderController;
 use App\Http\Controllers\FoodController;
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [ClientOrderController::class, 'index'])->name('client.order.index');
         Route::post('/', [ClientOrderController::class, 'store'])->name('client.order.store');
     });
+
+    Route::post('/carrinho/aplicarCupom', [CupomController::class, 'aplicarCupom'])->name('carrinho.aplicarCupom');
 });
 
 require __DIR__.'/auth.php';

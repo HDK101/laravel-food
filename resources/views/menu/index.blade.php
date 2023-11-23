@@ -7,7 +7,7 @@
                 <h1 class="text-4xl">{{ $selectedFood['food']->name }}</h1>
                 <img class="d-block w-1/6 rounded-lg m-2" src="{{ asset('storage/images/' . $selectedFood['food']->filename) }}" alt="{{$selectedFood['food']->name}}">
                 <p class="rounded-xl border-gray-500 border-2 w-fit p-4">Preço: {{ $selectedFood['food']->formattedPrice() }}</p>
-                <p class="rounded-xl border-gray-500 border-2 w-fit p-4">Total: {{ $selectedFood['food']->price() *  $selectedFood['quantity']}}</p>
+                <!-- <p class="rounded-xl border-gray-500 border-2 w-fit p-4">Total: {{ $selectedFood['food']->price() *  $selectedFood['quantity']}}</p> -->
 
                 <form class="flex gap-2" method="POST" action="{{ route('menu.update') }}">
                     @csrf
@@ -28,6 +28,26 @@
                 </form>
             </div>
             @endforeach
+            <form action="{{ route('carrinho.aplicarCupom') }}" method="POST">
+                @csrf
+                <input type="text" name="codigo" placeholder="Código do Cupom">
+                <button class="bg-red-600 p-4 rounded-xl font-bold text-white flex gap-2">
+                    <i data-feather="edit" color="white"></i>
+                    Aplicar Cupom
+                </button>
+            </form>
+            @php
+                $selectedFoods = session()->get('selectedFoods', []);
+                $cupomDiscount = session()->get('cupomDiscount', 0);
+                $totalPrice = 0;
+
+                foreach ($selectedFoods as $food) {
+                    $itemTotal = ($food['price_in_cents'] * $food['quantity']) * (1 - $cupomDiscount / 100);
+                    $totalPrice += $itemTotal;
+                }
+            @endphp
+            <p>Total da Compra: R$ {{ number_format($totalPrice / 100, 2, ',', '.') }}</p>
+            <p>Desconto aplicado: {{session()->get('cupomDiscount')}} %</p>
             <form method="POST" action="{{ route('client.order.store') }}">
                 @csrf
                 <button class="bg-red-600 p-4 rounded-xl font-bold text-white flex gap-2">
