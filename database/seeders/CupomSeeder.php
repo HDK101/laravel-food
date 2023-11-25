@@ -13,9 +13,14 @@ class CupomSeeder extends Seeder
      */
     public function run(): void
     {
-        $cupom = Cupom::create([
-            'code' => '123',
+        $cupom10 = Cupom::create([
+            'code' => 'CUPOM10',
             'discount_percent' => 10,
+        ]);
+
+        $cupom20 = Cupom::create([
+            'code' => 'CUPOM20',
+            'discount_percent' => 20,
         ]);
     }
 }

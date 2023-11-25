@@ -19,8 +19,9 @@ class CupomController extends Controller
         $codigoCupom = $request->input('codigo');
 
         $cupom = Cupom::where('code', $codigoCupom)->first();
+        $cupomDiscount = $cupom->discount_percent ?? 0;
 
-        $request->session()->put('cupomDiscount', $cupom->discount_percent  ?? 0);
+        $request->session()->put('cupomDiscount', $cupomDiscount);
         return redirect()->route('menu.index');
     }
 }
