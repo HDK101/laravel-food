@@ -18,7 +18,7 @@ return new class extends Migration
                     'can_order' => true,
                     'can_manage_orders' => false,
                     'can_manage_foods' => false,
-                    'created_at' => (new DateTime())->format(DateTime::ATOM)
+                    'created_at' => (new DateTime())
                 ]
             );
 
@@ -29,7 +29,7 @@ return new class extends Migration
                     'can_order' => true,
                     'can_manage_orders' => true,
                     'can_manage_foods' => true,
-                    'created_at' => (new DateTime())->format(DateTime::ATOM)
+                    'created_at' => (new DateTime())
                 ]
             );
         });

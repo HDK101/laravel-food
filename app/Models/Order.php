@@ -9,6 +9,11 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'coupon_discount', // Adicionado à lista $fillable
+    ];
+
     public function foods() {
         return $this->hasMany(FoodOrder::class);
     }
@@ -18,7 +23,8 @@ class Order extends Model
     }
 
     public function totalPrice() {
-        return $this->foods()->get()->sum(fn($food) => $food->price() * $food->quantity);
+        $discount = $this->attributes['coupon_discount'];
+        return $this->foods()->get()->sum(fn($food) => ($food->price() * $food->quantity) * (1 - $discount/100));
     }
 
     public function totalPriceFormatted() {
